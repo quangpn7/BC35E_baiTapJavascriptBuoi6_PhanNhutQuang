@@ -1,152 +1,124 @@
-/** BÀI 1: QUẢN LÝ TUYỂN SINH
- * - GIẢ SỬ: Người dùng nhập điểm 3 môn thi, điểm chuẩn của hội đồng thi, khu vực và đối tượng dự thi. Chương tình sẽ tổng điểm và báo kết quả cho người dùng.
- * - ĐẦU VÀO:
- * + Điểm 3 môn thi tương ứng với testScore1, testScore2, testScore3
- * + Điểm chuẩn của hội đồng thi: standardScore 
- * + Điểm ưu tiên theo khu vực (areaScore) X, A, B, C tương ứng với 2, 1, 0.5
- * + Điểm đối tượng (advaScore) 1, 2, 3 tương ứng với 2.5, 1.5 và 1
- *- XỬ LÝ: 
-   +Tạo ra 1 function có các chức năng sau:
-   1. Kiểm tra các môn có điểm bằng 0 hay không. Nếu có thì return ngay và báo trượt
-   2. Nếu không có điểm nào bằng 0 thì tính tổng điểm 3 môn và các điểm khu vực, đối tượng
-   + Tạo thêm một function khác để tính tổng điểm các điểm ưu tiên
-   +Tiếp tục tạo 1 function khác có chúc năng so sánh và báo kết quả
-  - ĐẦU RA: kết quả
-
+/**BÀI 1: TÌM SỐ CHẴN LẺ NHỎ HƠN 100
+ * -ĐẦU VÀO: Người dùng không cần nhập
+ * -XỬ LÝ:
+ * +Sử dụng function gán vào button xem kết quả
+ * +Sử dụng vòng lặp for để chạy số từ 0->100
+ * +Trong các trường hợp % 2 === 0 -> số chẵn -> cộng chuỗi vào even
+ * +Trong các trường hợp % 2 !== 0 -> số lẽ -> cộng chuỗi vào odd
+ * +DOM kết quả ra màn hình
+ * -KẾT QUẢ:
+ * + Số chẵn:.....
+ * + Số lẻ:.....
+ *
+ *
  */
 
-//Function 1: Kiểm tra chất lượng đầu số nhập vào hệ thống
-function validScore(testScore1, testScore2, testScore3, standardScore) {
-  if (testScore1 == 0 || testScore2 == 0 || testScore3 == 0) {
-    return (result =
-      "Bạn đã trượt do có điểm <span class='text-danger'>0</span>");
-  } else if (
-    (testScore1 > 10 && testScore1 !== 0) ||
-    (testScore2 > 10 && testScore2 !== 0) ||
-    (testScore3 > 10 && testScore3 !== 0)
-  ) {
-    return (result =
-      "Ban đã nhập sai điểm (Điểm phải là <span class='text-danger'>số dương bé hơn hoặc bằng 10</span>)");
-  } else if (standardScore > 34.5) {
-    return (result =
-      "Điểm chuẩn của bạn đã vượt quá điểm tối đa thí sinh có thể đạt được (Điểm chuẩn <span class='text-danger'>nhỏ hơn hoặc bằng 34.5</span>");
-  } else {
-    return (result = testScore1 + testScore2 + testScore3);
-  }
-}
-//Function 2: Tính tổng điểm ưu tiên
-function scoreAdvancedCalc(areaScore, advaScore) {
-  if (areaScore == "0.5") {
-    areaScore = 0.5;
-  } else if (areaScore == "2") {
-    areaScore = 2;
-  } else if (areaScore == "1") {
-    areaScore = 1;
-  } else {
-    areaScore = 0;
-  }
-  if (advaScore == "2.5") {
-    advaScore = 2.5;
-  } else if (advaScore == "1.5") {
-    advaScore = 1.5;
-  } else if (advaScore == "1") {
-    advaScore = 1;
-  } else {
-    advaScore = 0;
-  }
-  scoreAdTotal = areaScore + advaScore;
-  return scoreAdTotal;
-}
-//Function 3: So sánh điểm và báo kết quả
-function resultRun() {
-  var testScore1 = document.getElementById("testScore1").value * 1;
-  var testScore2 = document.getElementById("testScore2").value * 1;
-  var testScore3 = document.getElementById("testScore3").value * 1;
-  var standardScore = document.getElementById("standardScore").value * 1;
-  //Sử dụng function 1 với các biến vừa gán
-  var testTotalScore = validScore(
-    testScore1,
-    testScore2,
-    testScore3,
-    standardScore
-  );
-  //Nếu function 1 trả về dạng khác số thì return chương trình
-  if (typeof testTotalScore != typeof 1) {
-    return (document.getElementById(
-      "finalDOM"
-    ).innerHTML = `<p class='mb-0'>${result}</p>`);
-  } else {
-    //Nếu chương trình chay đến đây thì mới gọi function 2
-    var areaScore = document.getElementById("areaScore").value;
-    var advaScore = document.getElementById("objectStudent").value;
-    var finalScore =
-      testTotalScore + scoreAdvancedCalc(areaScore, advaScore) * 1;
-    //Tạo thông báo kết quả
-    if (finalScore >= standardScore) {
-      result = "Bạn đã <span class='text-danger'>ĐẠT</span>";
+function oddEven() {
+  var even = "";
+  var odd = "";
+  for (var index = 0; index < 100; index++) {
+    if (index % 2 == 0) {
+      even += index + " ";
     } else {
-      result = "Bạn đã <span class='text-danger'>KHÔNG ĐẠT</span>";
+      odd += index + ", ";
     }
   }
-
-  return (document.getElementById(
-    "finalDOM"
-  ).innerHTML = `Kết quả:<span class='text-danger'> ${finalScore}</span> → ${result}`);
+  document.getElementById(
+    "oddEvenResult"
+  ).innerHTML = `<p>Số chẵn: ${even}</p><p class='mb-0'>Số lẻ: ${odd}</p>`;
 }
-
-/**BÀI 2: TÍNH TIỀN ĐIỆN ĐÃ TIÊU THỤ
- * -GIẢ SỬ: Người dùng nhập vào tên và số điện đã sử dụng (kW). Chương trình sẽ tính ra số tiền cần đóng.
- * -ĐẦU VÀO: người dùng nhập vào tên và số lượng kW đã sử dụng
+//---------------------------------------------------------
+/**BÀI 2: TÍNH TỔNG S(n) = x + x^2 + x^3 +....+x^n
+ * -GIẢ SỬ: Người dùng nhập vào số x và số n. Chương trình sẽ tính theo công thức trên đề bài và in ra kết quả
+ * -ĐẦU VÀO: Người dùng nhập vào số x và số n
  * -XỬ LÝ:
- * 1. Gán biến số kW vào usedKW
- * 3. Ta tính bằng công thức sau dựa vào trường hợp tương ứng
- * +TH1: kw > 350
- * tongTien =
-      50 * 500 + 50 * 650 + 100 * 850 + 150 * 1100 + (usedKw - 350) * 1300
-  +TH2 kw <= 350 và kw > 300
-  tongTien = 50 * 500 + 50 * 650 + (usedKw - 100) * 850
-  +TH3 kw <= 100 và kw > 50
-   tongTien = 50 * 500 + (usedKw - 50) * 650
-   +TH4 kw <= 50 hoăc else
-   tongTien = usedKw *500
-
- * LƯU Ý: Để phép tính không bị lỗi ta sẽ if else để đảm bảo rằng số nhập vào khác 0 và nhỏ hơn 0
- * ĐẦU RA: tongTien
+ * + Sử dụng vòng lập với để lặp với bước nhảy n++
+ * + Cộng kết quả từng vòng lại vào 1 biến
+ * - ĐẦU RA: ketQua = ?
  */
-//Function 1: Tính tổng tiền
-function tongTien(usedKw) {
-  var tongTien;
-  if (usedKw <= 0) {
-    return;
-  } else if (usedKw > 350) {
-    tongTien =
-      50 * 500 + 50 * 650 + 100 * 850 + 150 * 1100 + (usedKw - 350) * 1300;
-    return tongTien;
-  } else if (usedKw <= 350 && usedKw > 100) {
-    tongTien = 50 * 500 + 50 * 650 + (usedKw - 100) * 850;
-    return tongTien;
-  } else if (usedKw <= 100 && usedKw > 50) {
-    tongTien = 50 * 500 + (usedKw - 50) * 650;
-    return tongTien;
-  } else {
-    tongTien = usedKw * 500;
-    return tongTien;
+
+function totalXN(x, n) {
+  var x = document.getElementById("txtXnumber").value * 1;
+  var n = document.getElementById("txtNnumber").value * 1;
+  var nIndex = 1;
+  var total = 0;
+  for (total; nIndex <= n; nIndex++) {
+    total += x ** nIndex;
   }
+  document.getElementById(
+    "ex2Result"
+  ).innerHTML = `Kết quả: <span class='text-danger'>${total}</span>`;
 }
-//Function 2: Tạo kết quả
-function ketQuaTongTien() {
-  var currentFormat = new Intl.NumberFormat("VN-vn");
-  var name = document.getElementById("name").value;
-  //Gán resultKw = function 1 với param được DOM trực tiếp từ web
-  var resultKw = currentFormat.format(
-    tongTien(document.getElementById("usedKw").value * 1)
-  );
-  if (resultKw == "NaN") {
-    document.getElementById(
-      "usedResult"
-    ).innerHTML = `Số bạn nhập không hợp lệ`;
-  } else
-    document.getElementById(
-      "usedResult"
-    ).innerHTML = `Họ tên: <span class='text-danger'>${name}</span>; Tiền điện: <span class='text-danger'>${resultKw} VND</span>`;
+//---------------------------------------------------------
+/**BÀI 3: TÍNH GIAI THỪA
+ *-GIẢ SỬ: Người dùng nhập vào số n và chương trình sẽ tính giai thừa của nó
+ *-ĐẦU VÀO: Người dùng sẽ nhập vào số n (số cần tính giai thừa)
+ *-XỬ LÝ:
+ *+Cho vòng lập chạy với index++
+ *+Nhân kết quả mỗi vòng với kết quả của vòng trước
+ *+Kết thúc vòng lập ta thu được kết quả
+ *-ĐẦU RA: ex3Result = ?
+ */
+
+function giaiThua(n) {
+  n = document.getElementById("txtEx3Num").value * 1;
+  nIndex = 1;
+  for (var totalEx3 = 1; nIndex <= n; nIndex++) {
+    totalEx3 *= nIndex;
+  }
+  document.getElementById(
+    "ex3Result"
+  ).innerHTML = `<p class='mb-0'>Kết quả: <span class='text-danger'>${totalEx3}</span></p>`;
 }
+//---------------------------------------------------------
+/**BÀI 4: DIV ĐỎ XANH
+ * -GIẢ SỬ: Người dùng khi click vào button sẽ in ra 10 thẻ, trong đó có 5 thẻ chẵn và 5 thẻ lẻ, thẻ chẵn sẽ có màu đỏ và thẻ lẻ sẽ có màu xanh
+ * -ĐẦU VÀO: người dùng không cần nhập
+ * -XỬ LÝ:
+ * +Sử dụng function vào button trong đó sẽ có if else
+ * +Sử dụng vòng lập chạy số từ 1-> 10 -> xác định index nào là chẵn và lẻ -> Nếu chẵn thì += vào ex4Result div màu đỏ và ngược lại thì là div màu xanh
+ * -ĐẦU RA: DOM kết quả ex4Result
+ */
+
+function oddEvenDiv() {
+  var ex4Index = 1;
+  for (var ex4Result = ""; ex4Index <= 10; ex4Index++) {
+    if (ex4Index % 2 === 0) {
+      ex4Result += `<p class='bg-danger text-white text-center rounded'>Div: ${ex4Index} -> Chẵn</p>`;
+    } else {
+      ex4Result += `<p class='bg-primary text-white text-center rounded'>Div: ${ex4Index} -> Lẻ</p>`;
+    }
+  }
+  document.getElementById("ex4Result").innerHTML = ex4Result;
+}
+//---------------------------------------------------------
+/**BÀI TẬP 5 (THÊM): TÌM SỐ NGUYÊN TỐ
+ * GIẢ SỬ: Người dùng nhập vào số x và chương trình sẽ in ra các số nguyên tố nhỏ hơn số X
+ * -ĐẦU VÀO: Người dùng nhập vào số x
+ * -XỬ LÝ:
+ * +Tạo một function gán vào button
+ * +Trong function này sẽ chạy vòng lặp for với các buóc nhảy xIndex++
+ * +Sử dụng IF ELSE để xác định đâu là số nguyên tố và gán vào ex5Result
+ * -ĐẦU RA: ex5Result = ?
+ */
+function soNguyenTo() {
+  var x = 15;
+  var xIndex = 2;
+  var ex5Result = "";
+  for (ex5Result; xIndex <= x; xIndex++) {
+    if (xIndex <= 1) {
+      ex5Result = "Không thoả điều kiện";
+    } else if (
+      xIndex % 1 === 0 &&
+      xIndex % xIndex === 0 &&
+      xIndex % [2, Math.sqrt(xIndex)] !== 0
+    ) {
+      ex5Result += xIndex + " ";
+    } else {
+      continue;
+    }
+  }
+  return ex5Result;
+}
+console.log(soNguyenTo());
+xIndex = 10;
