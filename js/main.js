@@ -27,6 +27,19 @@ function oddEven() {
     "oddEvenResult"
   ).innerHTML = `<p>Số chẵn: ${even}</p><p class='mb-0'>Số lẻ: ${odd}</p>`;
 }
+//************************************** */
+//*BÀI 1.2 TRONG SLIDE: TÌM SỐ NGUYÊN DƯƠNG NHỎ NHẤT SAO CHO 1+3+4+...+n > 10000
+
+function nTotal() {
+  var total = 0;
+  for (var i = 0; total < 10000; i += 1) {
+    total += i + 1;
+  }
+  document.getElementById(
+    "ex1_2Result"
+  ).innerHTML = `<p>Số cần tìm là: ${i}</p>`;
+}
+
 //---------------------------------------------------------
 /**BÀI 2: TÍNH TỔNG S(n) = x + x^2 + x^3 +....+x^n
  * -GIẢ SỬ: Người dùng nhập vào số x và số n. Chương trình sẽ tính theo công thức trên đề bài và in ra kết quả
@@ -92,33 +105,37 @@ function oddEvenDiv() {
   document.getElementById("ex4Result").innerHTML = ex4Result;
 }
 //---------------------------------------------------------
-/**BÀI TẬP 5 (THÊM): TÌM SỐ NGUYÊN TỐ
- * GIẢ SỬ: Người dùng nhập vào số x và chương trình sẽ in ra các số nguyên tố nhỏ hơn số X
- * -ĐẦU VÀO: Người dùng nhập vào số x
+/**BÀI 5: IN SỐ NGUYÊN TỐ
+ * -GIẢ SỬ: Người dùng nhập vào 1 số và chương trình sẽ in ra các số nguyên tố nhỏ hơn số đó
+ * -ĐẦU VÀO: Người dùng nhập vào một số nguyên dương
  * -XỬ LÝ:
- * +Tạo một function gán vào button
- * +Trong function này sẽ chạy vòng lặp for với các buóc nhảy xIndex++
- * +Sử dụng IF ELSE để xác định đâu là số nguyên tố và gán vào ex5Result
- * -ĐẦU RA: ex5Result = ?
+ * -ĐẦU RA:
+ * +Đầu tiền, ta tạo một function isSnt() có thể kiểm tra được nó có phải là số nguyên tố hay không. Với dữ kiện đề bài, ta chạy một vòng lập được rút gọn từ khoảng 2 đến căn bật 2 của số nhập vào, bước nhảy là 1. Nếu trong khoảng này, nếu nó có chia hết cho bất kì số nào thì nó sẽ không là số nguyên tố do không đúng về điều kiện của số nguyên tố (chỉ chia hết cho 1 và chính nó). Kết thúc vòng lặp nếu không false thì function isSnt() sẽ trả về giá trị True -> Số nguyên tố
+ * +Tiếp theo ta tạo function  displaySnt() có chức năng thu vào input của người dùng, sau đó dùng vòng lập để chạy số index với bước nhảy là 1. Bên trong vòng lặp ta if và gọi lại hàm isSnt(txtInput) để kiểm tra xe các số bước nhảy có phải là số nguyên tố hay không. Nếu phải thì += dồn nó vào một biến string.
+ * +Cuối cùng, sau khi đã chạy xong thì chương trình sẽ trả ra cho chúng ta một string bao gồm các số nguyên tố theo yêu cầu của đề bài.
+ * -KẾT QUẢ: ketqua =?
+ *
  */
-function soNguyenTo() {
-  var x = 15;
-  var xIndex = 2;
-  var ex5Result = "";
-  for (ex5Result; xIndex <= x; xIndex++) {
-    if (xIndex <= 1) {
-      ex5Result = "Không thoả điều kiện";
-    } else if (
-      xIndex % 1 === 0 &&
-      xIndex % xIndex === 0 &&
-      xIndex % [2, Math.sqrt(xIndex)] !== 0
-    ) {
-      ex5Result += xIndex + " ";
-    } else {
-      continue;
+
+function isSnt(txtInput) {
+  if (txtInput < 2) return false;
+  for (var t = 2; t <= Math.sqrt(txtInput); t++) {
+    if (txtInput % t == 0) {
+      return false;
     }
   }
-  return ex5Result;
+  return true;
 }
-console.log(soNguyenTo());
-xIndex = 10;
+
+function displaySnt() {
+  var txtInput = document.getElementById("txtEx5Number").value * 1;
+
+  for (var sntList = "", indexNum = 1; indexNum <= txtInput; indexNum++) {
+    if (isSnt(indexNum) == true) {
+      sntList += " " + indexNum;
+    }
+  }
+  document.getElementById(
+    "ex5Result"
+  ).innerHTML = `<p>Số nguyên tố cần tìm là: ${sntList}</p>`;
+}
